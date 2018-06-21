@@ -1,0 +1,69 @@
+
+
+//Tuk tabovete sa vajni, ako <li> elementa nqma edna tabuaciq na vutre nqma da bude v <ul> taga
+//TUK TAGOVETE SA BEZ <> I NE SE ZATVARQT NIKOGA
+
+//Kato mu dadem '=' mu podavame javascriptska stoinost
+ul val in [1,2,3,4,5] 
+    li= 'Item ' + val
+
+
+//KLASOVETE SE PISHAt DIreKTNo SUS: .ImeNaKlas
+//Div elementa se polzva cheto zatova mojem da ne go pishem v pug, mojem da go skipnem i to samo shte se doseti samo kato mu napishem klasa.
+//Shte generirame div sus nqkkuv klas, v nego shte ime <h1> tag a v nego shte ima nqkkuv text.
+.some-class 
+    h1  
+        | Some heading text!
+
+
+
+//TAKA SLAGAME I ATTRIBUTi:
+.another-class  
+    a(href="sofruni.bg")    
+        | Go to SoftUni !
+
+
+
+
+//Inputi:
+input#name(type="text")
+
+
+
+//Tablici:
+#wrapper    
+    table
+        tr
+            th  
+                | Name
+            th  
+                | Age
+        tr  
+            td  
+                | Atanas
+            td
+                | 25
+        tr
+            td
+                | Asen
+            td
+                | 26
+
+
+
+
+
+
+
+
+
+
+//KOGATO PUSNEM.pug FAILA OT TERMINALA:  pug pugFile.pug SHTE SE IZPULNI KODA V NEGO I SHTE NI GENERIRA
+//HTML FAILOVE V SUSHTATA PAPKA, DAJE I S KOMENTARI AKO MU SLOJIM 
+//KOGATO PROMENIM .pug FAILA SE PROMENQ DINAMICHNO I HTML FAILA !!!!!
+
+
+//FAILA SE RENDERIRA KATO NAPISHEM pug imeNaFaila.pug v terminala !!!!!!!!!!!!!
+//KOMENTARITE KOITO PISHA V MOMENTA SUSHTE SE GENERIRAT V HTML FAILA.
+
+
