@@ -1,0 +1,20 @@
+<div class="chat-wrapper">
+    <div id="message-wrapper">
+    {{#each messages}}
+        <div class="message-row">
+        {{#if isCurrentUserMessage}}
+            <span class="thread-message right">{{text}}</span>
+        {{else}}
+            <span class="thread-message left">{{text}}</span>
+        {{/if}}
+        </div>
+    {{/each}}
+    </div>
+    <div id="chat-form">
+        <form method="post">
+            <textarea col="20" row="4" name="message" placeholder="message"></textarea>
+            <input value="{{_id}}" name="threadId" hidden />
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
