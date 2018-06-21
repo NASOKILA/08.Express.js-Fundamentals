@@ -1,0 +1,12 @@
+<h1>Rend a car</h1>
+<form method="post" action="/rent/{{car.id}}">
+    <h1>Make : {{car.make}}</h1>
+    <h3>Model : {{car.model}}</h3>
+    <h3>Price : {{car.price}}</h3>
+
+    <input type="number" name="numberOfDays", placeholder="enter number of days" />
+    <input id="submit" type="submit" value="RENT" />
+</form>
+
+
+{{{message}}}

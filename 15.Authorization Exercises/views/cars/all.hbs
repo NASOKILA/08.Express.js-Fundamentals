@@ -1,0 +1,15 @@
+<h1>Cars</h1>
+<div class="cars-container">
+
+    <hr/> 
+    {{#each cars}} 
+        {{> car}}
+    <br/>
+    <hr/>
+    <br/> 
+    {{else}}
+    <p>No car in database!</p>
+    {{/each}}
+</div>
+
+{{{message}}}

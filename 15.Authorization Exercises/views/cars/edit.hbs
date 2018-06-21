@@ -1,0 +1,12 @@
+<h1>Edit a car</h1>
+<form method="post" action="/edit/{{car.id}}">
+    <input type="text" name="make"  value="{{car.make}}" placeholder="enter make" />
+    <input type="text" name="model" value="{{car.model}}" placeholder="enter model" />
+    <input type="text" name="imageUrl" value="{{car.imageUrl}}" placeholder="enter image url" />
+    <input type="number" name="price" value="{{car.price}}" placeholder="enter price" />    
+    <input type="text" name="color", value="{{car.color}}" placeholder="enter color (optional)" />
+    <input id="submit" type="submit" value="UPDATE" />
+</form>
+
+
+{{{message}}}

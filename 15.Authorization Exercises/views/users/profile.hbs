@@ -1,0 +1,33 @@
+<h1>Profile</h1>
+<section>
+    <h2>Username: {{username}}</h2>
+</section>
+<section>
+    <h2>Rent history</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Car</td>
+                <td>Duration</td>
+                <td>Rent Details</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each rentedCars}}
+                {{> showCarProfile}}
+            {{else}}
+            <tr>
+                <td colspan="3">
+                    <i>No rent history.
+                        <a href="/cars/all">Rent now</a>
+                    </i>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+
+
+
+{{{message}}}

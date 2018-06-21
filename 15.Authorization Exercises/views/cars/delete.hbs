@@ -1,0 +1,12 @@
+<h1>Delete car</h1>
+<form method="post" action="/delete/{{car.id}}">
+    <input type="text" disabled name="make"  value="{{car.make}}" placeholder="enter make" />
+    <input type="text" disabled name="model" value="{{car.model}}" placeholder="enter model" />
+    <input type="text" disabled name="imageUrl" value="{{car.imageUrl}}" placeholder="enter image url" />
+    <input type="number" disabled name="price" value="{{car.price}}" placeholder="enter price" />    
+    <input type="text" disabled name="color", value="{{car.color}}" placeholder="enter color (optional)" />
+    <input id="submit" type="submit" value="DELETE" />
+</form>
+
+
+{{{message}}}

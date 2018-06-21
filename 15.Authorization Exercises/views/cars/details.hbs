@@ -1,0 +1,26 @@
+
+<h1>Car Details</h1>
+<hr/>
+<section class="info">
+
+<br>
+<br>
+    <img width="300px" src="{{car.imageUrl}}" alt='car-image' />
+
+    <p><strong>Make: {{car.make}}</strong></p>
+    
+    <p><strong>Model: {{car.model}}</strong></p>
+
+    <p><strong>Price: {{car.price}}</strong></p>
+    
+    <p><strong>Rented: {{car.rented}} | {{car.duration}} days</strong></p>
+    
+    <p><strong>Times rented: {{car.rentedTimes}}</strong></p>
+    
+    <p><strong>Color: {{car.color}}</strong></p>
+    
+    <br/>
+<hr/>   
+    <a href="/rent/{{car.id}}">Rent</a> 
+</section>
+<br/>

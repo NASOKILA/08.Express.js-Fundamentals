@@ -1,0 +1,22 @@
+<section class="info">
+
+    <a href="/edit/{{id}}">
+    
+        <img width="300px" src="{{imageUrl}}" alt='car-image' />
+    </a>
+
+    <p>
+        <strong>{{make}}</strong>
+        <strong>{{model}}</strong>
+    </p>
+    <p>rented: <strong>{{rentedCount}}</strong></p>
+    <a href="/rent/{{id}}">Rent</a> |
+    <a href="/details/{{id}}">Details</a> 
+    
+    {{#if isAdmin}}
+  | <a href="/edit/{{id}}">Edit</a> |
+    <a href="/delete/{{id}}">Delete</a>
+    {{/if}}
+    
+    <br/>
+    </section>
