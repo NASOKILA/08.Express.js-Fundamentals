@@ -1,0 +1,57 @@
+
+<div class="container body-content">
+    <div class="row">
+
+        <div class="col-md-12">
+        <h1>User Details Page</h1>
+            <br/>
+            <br/>
+                <header>
+                    <h2>Name: {{user.fullName}}</h2>
+                </header>
+
+                <h3>
+                    Email: {{user.email}}
+                </h3>
+
+                <h3>
+                    Role: {{roleName}}
+                </h3>
+
+            <br/>
+            <br/>
+            <h3>Articles: </h3>
+            {{#each userArticles}}
+            <div class="col-md-6">
+                <article>
+                    <header>
+                        <h2>{{this.title}}</h2>
+                    </header>
+
+                    <p>{{content}}
+                    </p>
+
+                    <p>
+                        {{date}}
+                    </p>
+
+                    <small class="author">
+                        {{this.author.fullName}}
+                    </small>
+
+
+                    <footer>
+                        <div class="pull-right">
+                            <a class="btn btn-default btn-xs" href="/article/details/{{this.id}}">Read more &raquo;</a>
+                        </div>
+                    </footer>
+                </article>
+            </div>
+            {{else}}
+            <p>No articles registered !</p>
+        {{/each}}
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="container body-content">
+    <div class="row">
+        {{#each adminUsers}}
+            <div class="col-md-6">
+                
+                    <header>
+                        <h2>Name: {{fullName}}</h2>
+                    </header>
+
+                    <p>Email: {{email}}</p>
+                    <p><i>Id: {{_id}}</i></p>
+
+            </div>
+            {{else}}
+            <p>No Admins registered in the db !</p>
+        {{/each}}
+    </div>
+</div>
+<br/>
+<br/>

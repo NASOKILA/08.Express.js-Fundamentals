@@ -1,0 +1,42 @@
+<div class="container body-content">
+    <div class="row">
+        <h1>List All Articles Page</h1>
+        <br/>
+
+        {{#each articles}}
+        <div class="col-md-6">
+            <article>
+                <header>
+                    <h2>{{this.title}}</h2>
+                </header>
+
+                <p>{{this.content}}
+                </p>
+
+
+                    <p>
+                        {{date}}
+                    </p>
+
+                <small class="author">
+                    {{this.author.fullName}}
+                </small>
+
+                <footer>
+                    <div class="pull-right">
+                        {{#if isUserAuthorized}}
+                        <a class="btn btn-success btn-xs" href="/article/edit/{{this.id}}">Edit &raquo;</a>
+                        <a class="btn btn-danger btn-xs" href="/article/delete/{{this.id}}">Delete &raquo;</a>
+                        {{/if}}
+                        <a class="btn btn-default btn-xs" href="/">Back &raquo;</a>
+                    </div>
+                </footer>
+            </article>
+        </div>
+        {{else}}
+            <p>No Articles in DB !</p>
+        {{/each}}
+    </div>
+</div>
+</div>
+<br/>
