@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Asnc And Await</h1>
+    <p>
+        AKO MAHNEM ASYNC I AWAIT PURVO SHTE SE ZAREDI PINGVINA, ZAICHETO I NAKRAQ MECHKATA ZASHTOTO SA PO LEKI SNIMKI I S.L. SA BURZI
+        ZAQVKI, OBACHE KATO KAJEM DA IZCHAKA SUS ASYNC I AWAIT NA MECHOKA I ZAICHETO PURVO GI ZAREJDA TQH I POSLE NAKRAQ
+        ZAREJDA PINGVINA !!!!
+    </p>
+    <br>
+    <button onclick="loadAnimals()">Load Animals</button>
+    <button onclick="hideAnimals()">Hide Animals</button>
+    <br>
+    <hr>
+    <div id="result">
+    </div>
+    <script>
+        //RUN THIS FILE WITH FIREFOX 
+
+        //Asinc and await
+        //await must exist in an async function
+        //We can use promises for asinhronous programing 
+        //we can turn a function into a promise and then use .then() and .catch()
+
+
+        /*  
+            AKO MAHNEM ASYNC I AWAIT PURVO SHTE SE ZAREDI PINGVINA, ZAICHETO I NAKRAQ MECHKATA 
+            ZASHTOTO SA PO LEKI SNIMKI I S.L. SA BURZI ZAQVKI, 
+            OBACHE KATO KAJEM DA IZCHAKA SUS ASYNC I AWAIT NA MECHOKA I ZAICHETO PURVO GI ZAREJDA
+            TQH I POSLE NAKRAQ ZAREJDA PINGVINA !!!!
+        */
+        let bearUrl = 'https://vignette.wikia.nocookie.net/wolvesofthebeyond/images/5/57/Bear.jpg/revision/latest?cb=20120516015718';
+        let bunnyUrl = 'https://s.yimg.com/ny/api/res/1.2/nXt1m7cqq4Ht7r1fNY01eg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9MTI4MDtoPTk2MA--/http://media.zenfs.com/en/homerun/feed_manager_auto_publish_494/569b1e56005ffe081dc7af020417caa6';
+        let pinguinUrl = 'data:image/jpeg;base64,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';
+
+        async function loadAnimals() {
+
+            //bear img
+            await $.ajax({
+                type: 'GET',
+                url: bearUrl,
+                success: function (res) {
+                    let h3 = $('<h3>').text('BEAR LOADED');
+                    let img = $('<img>')
+                        .attr('src', bearUrl)
+                        .attr('width', '200px')
+                        .appendTo('#result');
+
+                    $('#result').append(img);
+                    $('#result').append(h3);
+
+                },
+                error: function (err) {
+                    console.log(err)
+                    $('<h3>').text('IMAGE NOT LOADED').appendTo('#result');
+                }
+            });
+
+
+            //bunnies img
+            await $.ajax({
+                type: 'GET',
+                url: bunnyUrl,
+                success: function (res) {
+                    let h3 = $('<h3>').text('BUNNY LOADED');
+                    let img = $('<img>')
+                        .attr('src', bunnyUrl)
+                        .attr('width', '200px')
+                        .appendTo('#result');
+
+                    $('#result').append(img);
+                    $('#result').append(h3);
+
+                },
+                error: function (err) {
+                    console.log(err)
+                    $('<h3>').text('IMAGE NOT LOADED').appendTo('#result');
+                }
+            });
+
+
+            //penguin img
+            $.ajax({
+                type: 'GET',
+                url: pinguinUrl,
+                success: function (res) {
+                    let h3 = $('<h3>').text('PENGUIN LOADED');
+                    let img = $('<img>')
+                        .attr('src', pinguinUrl)
+                        .attr('width', '200px')
+                        .appendTo('#result');
+
+                    $('#result').append(img);
+                    $('#result').append(h3);
+
+                },
+                error: function (err) {
+                    console.log(err)
+                    $('<h3>').text('IMAGE NOT LOADED').appendTo('#result');
+                }
+            });
+
+        };
+
+
+        function hideAnimals() {
+            $('#result').empty();
+        }
+
+
+
+    </script>
+</body>
+
+</html>
