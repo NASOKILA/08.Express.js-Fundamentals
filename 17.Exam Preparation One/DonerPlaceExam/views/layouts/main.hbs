@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Doner Place</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   
+	    <link href="/css/site.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <span class="logo">Doner Place</span>
+            {{#if isAuthenticated}}
+            <span class="greeting">Welcome {{role}}, {{username}}! |
+                <a href="/user/logout">[logout]</a>
+            </span>
+            {{/if}}
+            <ul class="menu">
+                
+                <li><a class="button" href="/">Home</a></li>
+                {{#if isAuthenticated}}
+                <li><a class="button" href="/myOrders">My Orders</a></li>
+				<li><a class="button" href="/allOrders">All Orders</a></li>
+                {{#if isAdmin}}
+                <li><a class="button" href="/myOrders">Order Status</a></li>
+				<li><a class="button" href="/product/create">Create Product</a></li>
+                {{/if}}
+                
+                {{else}}
+                <li><a class="button" href="/user/login">Login</a></li>
+                <li><a class="button" href="/user/register">Register</a></li>
+                {{/if}}
+            </ul>
+        </header>
+        <main>
+            {{{body}}}
+        </main>
+        <footer>Doner Place &copy; 2017</footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+
+        <main>
+            <h1>Order details</h1>
+            <div class="catalog">
+                <div class="column">
+                    <img src="{{product.imageUrl}}">
+                </div>
+                <div class="column">
+                    <h2>{{categoryName}} doner, {{product.size}}cm</h2><br/>
+                    <h3>From {{date}}</h3><br/>
+                    <div class="toppings">
+
+                        <h3>Toppings:</h3>
+                        {{#each toppings}}
+                            <p style="text-transform: capitalize;">{{name}}</p>
+                            {{else}}
+                                <p>No toppings!</p>
+                        {{/each}}
+                    </div>
+                </div>
+                <br/>
+                <div class="status">
+                    {{{status}}}
+                </div>
+            </div>
+        </main>

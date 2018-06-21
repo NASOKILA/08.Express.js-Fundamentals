@@ -1,0 +1,29 @@
+
+        <main>
+            <form method="post">
+			  <h2>Delete Product</h2>
+			  <div>
+				<label for="category">Category</label>
+				<select name="category" disabled id="category">
+				  <option value="beef">Beef</option>
+				  <option value="chicken">Chicken</option>
+				  <option value="lamb">Lamb</option>
+				</select>
+			  </div>
+			   <div>
+				<label for="imageUrl">Image Url</label>
+				<input id="imageUrl" disabled value="{{product.imageUrl}}" name="imageUrl" type="text">
+			  </div>
+			  <div>
+				<label for="size">Size</label>
+				<input id="size" disabled value="{{product.size}}" name="size" type="number">
+			  </div>
+			  <div>
+				<strong>Toppings</strong><br>
+				<textarea name="toppings" disabled >{{product.toppings}}</textarea>
+			  </div>
+			  <div>
+				<input type="submit" value="Delete" class="button" style="border:0"/>
+			  </div>
+			</form>
+        </main>
