@@ -1,0 +1,9 @@
+{
+	"firstname":"Atanas",
+	"surename":"Kambitov",
+	"age":"25",
+	"gender":"male",
+	"friends":["Goshkata",
+	"Rusnaka",
+	"Ovidiu"]
+}
