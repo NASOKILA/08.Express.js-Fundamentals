@@ -49,14 +49,13 @@ module.exports = {
         res.render('users/register')
     },
     registerPost: (req, res) => {
-        
+
         let reqUser = req.body
-        
+
         User.findOne({ username: reqUser.username }).then(user => {
 
             let errorMsg = '';
 
-            //validation
             if (user) {
                 res.redirect('/');
                 errorMsg = 'User with the same username exists!';
@@ -64,9 +63,6 @@ module.exports = {
                 req.redirect('/');
                 errorMsg = 'Passwords do not match!'
             }
-
-
-
 
             let salt = encryption.generateSalt()
             let hashedPassword = encryption.generateHashedPassword(salt, reqUser.password)
@@ -87,8 +83,6 @@ module.exports = {
                     res.redirect('/')
                 })
             })
-
         })
     },
-
 };

@@ -1,14 +1,14 @@
 <div class="chat-wrapper">
     <div id="message-wrapper">
-    {{#each messages}}
+        {{#each messages}}
         <div class="message-row">
-        {{#if isCurrentUserMessage}}
+            {{#if isCurrentUserMessage}}
             <span class="thread-message right">{{text}}</span>
-        {{else}}
+            {{else}}
             <span class="thread-message left">{{text}}</span>
-        {{/if}}
+            {{/if}}
         </div>
-    {{/each}}
+        {{/each}}
     </div>
     <div id="chat-form">
         <form method="post">
