@@ -1,8 +1,6 @@
 const fs = require('fs')
 const filePath = './views/home.html'
 
-
-
 module.exports = (req, res) => {
   if (req.pathname === '/' && req.method === 'GET') {
     fs.readFile(filePath, (err, data) => {
@@ -15,7 +13,8 @@ module.exports = (req, res) => {
         })
         res.end(data)
     })
-  }else{
+  }
+  else{
       return true
   }
 }

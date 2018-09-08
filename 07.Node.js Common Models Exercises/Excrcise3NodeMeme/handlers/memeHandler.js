@@ -1,9 +1,7 @@
-
 const fs = require('fs')
 const addMemefilePath = './views/addMeme.html';
 const viewAllfilePath = './views/viewAll.html';
 const dataBase = './config/dataBase.js';
-
 
 module.exports = (req, res) => {
   if (req.pathname === '/viewAllMemes' && req.method === 'GET') {
