@@ -83,7 +83,6 @@ module.exports = {
             });
         }
 
-        //pravim gi v ravilniq format
         Product.create({
 
             category,
@@ -109,17 +108,14 @@ module.exports = {
 
         let id = req.params.id;
 
-        //with .populate('author') we attach the author object in the article
         Product.findById(id).populate('author').then(article => {
             if (!req.user) {
                 res.render('product/details', { procuct: article, isUserAuthorized: false });
                 return;
             }
 
-            //With .isInRole('Admin') we check if the user is an administrator
             req.user.isInRole('Admin').then(isAdmin => {
 
-                //user.isAuthor(article) checks if we are the author if the article
                 let isUserAuthorized = isAdmin || req.user.isAuthor(article);
 
                 res.render('article/details', { article: article, isUserAuthorized: isUserAuthorized });
@@ -144,8 +140,6 @@ module.exports = {
                     return;
                 }
 
-
-
                 if (isAdmin) {
                     res.render('product/edit-product', {
                         role: "Admin",
@@ -164,8 +158,6 @@ module.exports = {
                         product
                     });
                 }
-
-
             });
         });
     },
@@ -196,7 +188,6 @@ module.exports = {
         } else if (!productArgs.size || Number(productArgs.size) < 17 || Number(productArgs.size) > 24) {
             errorMsg = 'Invalid size!';
         }
-
 
         if (errorMsg) {
 
@@ -287,11 +278,9 @@ module.exports = {
         }
 
         Product.findOneAndRemove({ _id: id }).populate('author').then(product => {
-            
-            res.redirect('/'); 
-        
+
+            res.redirect('/');
+
         });
-
     },
-
 };

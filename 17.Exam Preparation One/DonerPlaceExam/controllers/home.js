@@ -21,35 +21,29 @@ module.exports = {
             }
             req.user.isInRole('Admin').then(isAdmin => {
 
-                if (isAdmin)
-                {
+                if (isAdmin) {
                     res.render('home/index-admin', {
-                        role:"Admin",
+                        role: "Admin",
                         username: req.user.fullName,
                         isAuthenticated: true,
-                        isAdmin,   
+                        isAdmin,
                         chickenDoners,
                         beefDoners,
                         lambDoners
                     });
                 }
-                else
-                {                    
+                else {
                     res.render('home/index', {
-                        role:"User",
+                        role: "User",
                         username: req.user.fullName,
                         isAuthenticated: true,
-                        isAdmin,   
+                        isAdmin,
                         chickenDoners,
                         beefDoners,
                         lambDoners
                     });
                 }
-                
             });
-
-
-
         });
     }
 };

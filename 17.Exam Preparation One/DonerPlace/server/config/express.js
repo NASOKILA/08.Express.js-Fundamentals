@@ -5,7 +5,7 @@ const session = require('express-session')
 const passport = require('passport')
 
 module.exports = (config, app) => {
-  app.set('view engine', 'hbs',)
+  app.set('view engine', 'hbs', )
   app.set('views', config.rootPath + '/views')
 
   app.use(cookieParser())

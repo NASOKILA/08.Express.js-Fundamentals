@@ -11,7 +11,6 @@ module.exports = {
         }
         else {
 
-
             Role.findOne({ "name": "Admin" }).then((role) => {
 
                 let adminUsers = [];
@@ -22,7 +21,6 @@ module.exports = {
                     adminUsersId.push(id);
                 }
 
-                //findUser
                 User.find({}).then((users) => {
 
                     for (const key in users) {
@@ -32,7 +30,6 @@ module.exports = {
                         if (adminUsersId.includes(userId))
                             adminUsers.push(currentUser);
                     }
-
 
                     res.render('admin/users', {
                         adminUsers

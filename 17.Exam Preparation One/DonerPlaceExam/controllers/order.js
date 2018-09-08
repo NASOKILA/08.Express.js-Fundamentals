@@ -3,7 +3,7 @@ const Product = mongoose.model('Product');
 const Order = mongoose.model('Order');
 
 module.exports = {
-   
+
     statusPost: (req, res) => {
 
         if (!req.isAuthenticated()) {
@@ -11,41 +11,35 @@ module.exports = {
             return;
         }
 
-        let params = [];     
-        for(let orderId in req.body){
-        
-            let newStatus = req.body[orderId]; 
+        let params = [];
+        for (let orderId in req.body) {
+
+            let newStatus = req.body[orderId];
             params.push({
                 orderId,
                 newStatus
             });
-
         }
 
+        for (let i = 0; i < params.length; i++) {
+            let orderId = params[i].orderId;
+            let status = params[i].newStatus;
 
-        for(let i = 0; i < params.length; i++)
-        {
-                let orderId = params[i].orderId;
-                let status = params[i].newStatus;
-
-
-
-                Order.update({ _id: orderId }, {
-                    $set: {
-                        status:status,                    }
-                })
+            Order.update({ _id: orderId }, {
+                $set: {
+                    status: status,
+                }
+            })
                 .then(orderUpdated => {
 
                     console.log("Order updated!")
-                    if(i === params.length - 1)
-                    {
-                      res.redirect("/");
-                      return;
+                    if (i === params.length - 1) {
+                        res.redirect("/");
+                        return;
                     }
 
                 })
                 .catch((err) => console.log(err));
-
         }
     },
 
@@ -60,9 +54,7 @@ module.exports = {
 
             req.user.isInRole('Admin').then(isAdmin => {
 
-
                 let orders = ordersArr.filter(o => o.product !== null);
-
 
                 if (isAdmin) {
 
@@ -83,14 +75,9 @@ module.exports = {
                         isAdmin,
                         orders
                     });
-
                 }
-
             });
-
-
         });
-
     },
 
     allOrders: (req, res) => {
@@ -104,12 +91,9 @@ module.exports = {
 
             req.user.isInRole('Admin').then(isAdmin => {
 
-
                 let orders = ordersArr.filter(o => o.product !== null);
 
-
                 let orderArr = orders;
-
 
                 if (isAdmin) {
 
@@ -119,7 +103,6 @@ module.exports = {
                         isAuthenticated: true,
                         isAdmin,
                         orders
-
                     });
                 }
                 else {
@@ -131,13 +114,9 @@ module.exports = {
                         isAuthenticated: true,
                         isAdmin,
                     });
-
                 }
-
-
             });
         });
-
     },
 
     order: (req, res) => {
@@ -172,12 +151,8 @@ module.exports = {
                     product,
                     toppings
                 });
-
             });
-
-
         });
-
     },
 
     orderPost: (req, res) => {
@@ -187,14 +162,11 @@ module.exports = {
             return;
         }
 
-
         let params = req.body;
 
         let id = params["productId"];
 
         let date = new Date(Date.now()).toLocaleString();
-
-        //let categoryName = product.category.charAt(0).toUpperCase() + product.category.slice(1);        
 
         let toppings = [];
 
@@ -257,7 +229,7 @@ module.exports = {
                     }
 
                     let status = "";
-                    //to finish status
+
                     if (order.status === "Pending") {
                         status = '<div class="status-block">' +
                             '<span class="progress-right"></span>' +
@@ -367,12 +339,6 @@ module.exports = {
 
                 });
             });
-
-
         });
-
-
-        //To finish
-
     }
 };  
