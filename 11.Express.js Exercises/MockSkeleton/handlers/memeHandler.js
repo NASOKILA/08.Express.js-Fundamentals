@@ -6,8 +6,6 @@ const qs = require('querystring')
 const shortid = require('shortid')
 const formidable = require('formidable')
 
-// Utils
-
 let memeGenerator = (id, title, memeSrc, description, privacy) => {
   return {
     id: id,
@@ -33,7 +31,6 @@ let fieldChecker = obj => {
     }
   }
 }
-//
 
 let viewAll = (req, res) => {
   let data = db.getDb()
@@ -281,7 +278,7 @@ module.exports = (req, res) => {
     searchForMeme(req, res)
   } else if (req.pathname === '/addGenre' && req.method === 'GET') {
     createGenreView(req, res)
-  }else if (req.pathname === '/aaddGenre' && req.method === 'GET') {
+  } else if (req.pathname === '/aaddGenre' && req.method === 'GET') {
     console.log(req.querypath)
     createGenreView(req, res)
   } else {
