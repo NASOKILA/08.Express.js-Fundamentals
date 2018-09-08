@@ -48,11 +48,11 @@ let getStaticFiles = (req, res) => {
   })
 }
 
-let handler404 = (req,res) => {
+let handler404 = (req, res) => {
 
-    res.writeHead(404, 'Resource not found')
-    res.end()
-  
+  res.writeHead(404, 'Resource not found')
+  res.end()
+
 }
 
 module.exports = (req, res) => {
@@ -68,6 +68,6 @@ module.exports = (req, res) => {
   ) {
     getStaticFiles(req, res)
   } else {
-    handler404(req,res)
+    handler404(req, res)
   }
 }

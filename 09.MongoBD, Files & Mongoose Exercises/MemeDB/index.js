@@ -13,11 +13,11 @@ db.load().then(() => {
         let task = handler(req, res)
         if (task !== true) {
           break
-        } 
+        }
       }
     })
     .listen(port)
-    console.log('Im listening on '+port)
-}).catch(()=>{
-    console.log('Failed to load DB')
+  console.log('Im listening on ' + port)
+}).catch(() => {
+  console.log('Failed to load DB')
 })

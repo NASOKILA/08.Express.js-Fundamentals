@@ -1,10 +1,7 @@
-
-
 const fs = require('fs');
 const formidable = require('formidable');
 const Image = require('mongoose').model('Image');
 const Tag = require('mongoose').model('Tag');
-
 
 module.exports = (req, res) => {
   if (req.pathname === '/search') {
@@ -25,9 +22,6 @@ function search(req, res) {
       'Content-Type': 'text/html'
     })
 
-
-
-    //parsvame formata
     let form = formidable.IncomingForm();
 
     form.parse(req, (err, fields, files) => {
@@ -39,27 +33,19 @@ function search(req, res) {
       let afterDate = req.pathquery.afterDate;
       let beforeDate = req.pathquery.beforeDate;
       let limit = req.pathquery.Limit;
-
       let result = '';
-
-      //ako imame limit go setvame 
       let limitNumber = 100000000000;
+
       if (limit) {
         limitNumber = Number(limit);
       }
 
-
-      //empty search
       if ((tagName === 'Write tags separted by ,' || tagName === '')
         && afterDate === ""
         && beforeDate === ""
         && limit === "") {
 
-
-
-        //vzimame ot bazata vsichki snimki
         Image.find({}).then(images => {
-          //console.log(tags)
           for (let image of images) {
             result += imageTemplate(image);
           }
@@ -71,16 +57,16 @@ function search(req, res) {
           res.end(data);
         });
       }
-      //samo s limit
+
       else if ((tagName === 'Write tags separted by ,' || tagName === '')
         && afterDate === ""
         && beforeDate === "") {
 
-        //vzimame ot bazata vsichki snimki
+
         Image.find({})
           .limit(limitNumber)
           .then(images => {
-            //console.log(tags)
+
             for (let image of images.sort(i => i.creationDate)) {
               result += imageTemplate(image);
             }
@@ -92,12 +78,9 @@ function search(req, res) {
             res.end(data);
           });
       }
-      //tagove i limiti
+
       else {
-
         const params = {};
-
-        
         const tags = req.pathquery.tagName
           .split(',')
           .filter(e => e.length > 0);
@@ -114,25 +97,14 @@ function search(req, res) {
             .catch(err => {
               console.log(err);
             });
-
-
-
         }
-
       }
-
     });
-
-
-    //res.end(data);
   });
-
 }
-
 
 function getImagsAndRespond(params, limitNumber, data, res) {
 
-  //NE ISKA DA NAMERI TAGOVETE !!!
   Image.find(params)
     .limit(limitNumber)
     .then(images => {
@@ -155,7 +127,6 @@ function getImagsAndRespond(params, limitNumber, data, res) {
 
       res.end(data);
     });
-
 }
 
 function imageTemplate(image) {

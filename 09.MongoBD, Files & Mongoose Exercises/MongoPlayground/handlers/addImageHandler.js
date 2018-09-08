@@ -1,8 +1,6 @@
 
 const Image = require('mongoose').model('Image');
 const formidable = require('formidable');
-
-//vzimame si ObjctId za da si parsnem vseki takuv obekt
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = (req, res) => {
@@ -14,8 +12,6 @@ module.exports = (req, res) => {
     return true
   }
 }
-
-
 
 function addImage(req, res) {
 
@@ -30,12 +26,10 @@ function addImage(req, res) {
     let imageTitle = fields.imageTitle;
     let description = fields.description;
 
-    //
     let tags = fields.tagsID.split(',')
       .filter(t => t !== "")
       .filter((v, i, a) => a.indexOf(v) === i)
-      .map(ObjectId);    //PARSVAME VSEKI EDIN ELEMENT KUM ObjectId, vikame go kato funkciq
-    //NO MOJEM I DA GO SLOJIM KATO STRING PAK MINAVA
+      .map(ObjectId);
 
     Image.create({
       url: imageUrl,
@@ -46,7 +40,6 @@ function addImage(req, res) {
     })
       .then(tag => {
 
-        //sled zapisvaneto v bazata redirektvame kum home-a
         res.writeHead(302, {
           location: '/'
         })
@@ -79,11 +72,9 @@ function deleteImg(req, res) {
 
     let imageId = ObjectId(req.pathquery.id);
     let imageIdString = req.pathquery.id;
-    //console.log(imageId);
 
     Image.findByIdAndRemove({ '_id': imageId }).then(() => {
 
-      //redirektvame kum home
       res.writeHead(302, {
         location: '/'
       });
@@ -98,8 +89,3 @@ function deleteImg(req, res) {
   });
 
 }
-
-
-
-
-
