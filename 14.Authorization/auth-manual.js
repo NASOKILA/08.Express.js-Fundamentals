@@ -1,6 +1,4 @@
 
-//TUK NE POLZVAME PASSPORT, PRAVIM VSICHKO RUCHNO
-
 const router = require('express').Router();
 const encryption = require('./encryption');
 
@@ -74,7 +72,7 @@ router.post('/register', (req, res) => {
         username
     };
     req.session.message = "Registration successful";
-    console.log(user);
+
     return res.redirect('/');
 
     function error(message) {

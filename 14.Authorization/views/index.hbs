@@ -8,12 +8,14 @@
         body {
             padding: 20px;
         }
+
         .product {
             border: 1px solid black;
             display: inline-block;
             padding: 5px;
             margin: 10px;
         }
+
         .message {
             display: inline-block;
             background-color: gainsboro;
@@ -25,7 +27,6 @@
 </head>
 
 <body>
-    <!--Ako imame message go pokazvame-->
     {{#if message}}
     <div class="message">{{message}}</div>
     {{/if}}
@@ -43,14 +44,16 @@
         </div>
         {{/each}}
     </div>
-<br/><br/>
-    {{#if loggedIn}}
-    <a href="/auth/login">[Login]</a><br/><br/>
+    <br/>
+    <br/> {{#if loggedIn}}
+    <a href="/auth/login">[Login]</a>
+    <br/>
+    <br/>
     <a href="/auth/register">[Register]</a>
     {{else}}
-    <a href="auth/logout">[Logout]</a>    
+    <a href="auth/logout">[Logout]</a>
     {{/if}}
-    
+
 </body>
 
 </html>
