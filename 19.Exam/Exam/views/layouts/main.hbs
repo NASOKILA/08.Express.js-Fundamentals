@@ -15,21 +15,18 @@
             </div>
 
             <nav>
-                {{#if isAdmin}}
-                
-                {{else}}
-                {{/if}}
+                {{#if isAdmin}} {{else}} {{/if}}
                 <a href="/">Main Page</a>
                 <a href="/article/latest">Latest Article</a>
                 <a href="/article/all">All Articles</a>
 
                 <form method="POST" action="/article/search">
-                    <input type="text" name="searchedWord" Placeholder="Search"/>
-                    <input type="submit" >
+                    <input type="text" name="searchedWord" Placeholder="Search" />
+                    <input type="submit">
                 </form>
 
                 {{#if isAuthenticated}}
-                    <a href="/article/create">Create New Article</a>
+                <a href="/article/create">Create New Article</a>
                 {{/if}}
             </nav>
         </aside>

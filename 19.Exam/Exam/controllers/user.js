@@ -17,7 +17,6 @@ module.exports = {
 
             let errorMsg = '';
 
-            //validation
             if (user) {
                 errorMsg = 'User with the same username exists!';
             } else if (registerArgs.password !== registerArgs.repeatedPassword) {
@@ -43,11 +42,9 @@ module.exports = {
                 Role.findOne({ name: 'User' }).then(role => {
 
                     roles.push(role.id);
-                    //save the role on the user
                     userObject.roles = roles;
 
                     User.create(userObject).then(user => {
-                        //pushe the users to the roles
                         role.users.push(user);
 
                         role.save(err => {
@@ -119,40 +116,6 @@ module.exports = {
 
         if (!user) {
             res.redirect("/user/login");
-        }
-        else 
-        {
-            /*
-            let roleId = user.roles[0].toString();
-            Role.findById(roleId).then((role) => {
-
-                let roleName = role.name;
-                let userArticles = [];
-
-                //take all articles
-                Article.find({ "author": user }).populate('author')
-                    .then(articles => {
-
-
-                        for (const articleObj of articles) {
-
-                            let article = articleObj;
-
-                            userArticles.push(article);
-                        }
-
-                        res.render('user/details', {
-                            user,
-                            userArticles,
-                            roleName
-                        });
-
-
-                    });
-
-
-            });
-            */
         }
     }
 

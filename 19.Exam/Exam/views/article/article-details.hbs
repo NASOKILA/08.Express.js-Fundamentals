@@ -1,15 +1,13 @@
 <main>
     <h1>Article details</h1>
     <div class="catalog">
-
         <br/>
         <div class="column">
-            Title: 
+            Title:
             <h2>{{article.title}}</h1>
                 <br/>
                 <hr/>
-                <br/>
-                Content:
+                <br/> Content:
                 <h2> {{article.content}}</h2>
                 <br/>
         </div>
@@ -24,7 +22,5 @@
         <br/> {{#if isAuthenticated}}
         <a href="/article/edit/{{article.id}}">[Edit Article]</a>
         {{/if}}
-
-
     </div>
 </main>

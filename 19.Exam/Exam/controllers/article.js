@@ -4,7 +4,6 @@ const User = require('mongoose').model('User');
 
 module.exports = {
 
-
     createGet: (req, res) => {
 
         if (!req.isAuthenticated()) {
@@ -94,9 +93,6 @@ module.exports = {
 
         }).then(article => {
 
-            console.log(article)
-
-            //create edit 
             Edit.create({
                 author: req.user.fullName.toString(),
                 date: new Date(Date.now()),
@@ -104,13 +100,11 @@ module.exports = {
                 article: article
             }).then((edit) => {
 
-                console.log(edit)
                 article.history.push(edit);
 
                 article.save();
 
                 User.findById(req.user.id).then((user) => {
-
 
                     user.articles.push(article);
                     user.save(err => {
@@ -121,12 +115,9 @@ module.exports = {
 
                         res.redirect('/');
                         return;
-
                     })
                 })
-
             });
-
 
         }).catch(err => {
             console.log(err);
@@ -134,7 +125,6 @@ module.exports = {
     },
 
     all: (req, res) => {
-
 
         Article.find({})
             .sort({ title: 1 })
@@ -170,22 +160,17 @@ module.exports = {
                         isAdmin,
                         articles
                     });
-
                 });
-
             });
     },
 
     search: (req, res) => {
 
-
-        console.log('search articles')
         let searchedWord = req.body.searchedWord;
 
         Article.find({})
             .then((allArticles) => {
 
-                console.log(allArticles)
 
                 let articles = allArticles.filter(a => a.title.toString().toLowerCase().includes(searchedWord));
 
@@ -200,8 +185,6 @@ module.exports = {
 
                     return;
                 }
-
-
 
                 req.user.isInRole('Admin').then(isAdmin => {
 
@@ -237,7 +220,6 @@ module.exports = {
         Article.findById(id).populate('history').populate('creator').populate('author')
             .then(article => {
 
-                //get article edits
                 let edits = article.history;
 
                 if (!req.isAuthenticated()) {
@@ -252,7 +234,6 @@ module.exports = {
                 }
 
                 req.user.isInRole('Admin').then(isAdmin => {
-
 
                     if (isAdmin) {
                         res.render('article/history', {
@@ -273,7 +254,6 @@ module.exports = {
                         });
                     }
 
-
                 });
             });
     },
@@ -287,7 +267,6 @@ module.exports = {
 
         let id = req.params.id;
 
-        //with .populate('author') we attach the author object in the article
         Article.findById(id).populate('creator').then(article => {
 
             if (!req.isAuthenticated()) {
@@ -300,7 +279,6 @@ module.exports = {
 
                 return;
             }
-
 
             req.user.isInRole('Admin').then(isAdmin => {
 
@@ -328,10 +306,7 @@ module.exports = {
 
     latest: (req, res) => {
 
-
-        //with .populate('author') we attach the author object in the article
         Article.find({}).populate('creator').then(articles => {
-
 
             let article = articles.pop();
 
@@ -345,7 +320,6 @@ module.exports = {
 
                 return;
             }
-
 
             req.user.isInRole('Admin').then(isAdmin => {
 
@@ -366,7 +340,6 @@ module.exports = {
                     isAdmin,
                     article
                 });
-
             });
         });
     },
@@ -395,8 +368,6 @@ module.exports = {
                     return;
                 }
 
-
-
                 if (isAdmin) {
                     res.render('article/edit', {
                         role: "Admin",
@@ -415,8 +386,6 @@ module.exports = {
                         article
                     });
                 }
-
-
             });
         });
     },
@@ -458,8 +427,6 @@ module.exports = {
                     return;
                 }
                 else {
-
-
                     res.render('article/edit', {
                         role: "User",
                         username: req.user.fullName,
@@ -467,9 +434,7 @@ module.exports = {
                         isAdmin,
                         error: errorMsg
                     });
-
                 }
-
             });
         }
         else {
@@ -482,11 +447,8 @@ module.exports = {
             })
                 .then(updated => {
 
-
                     Article.findById({ _id: req.params.id })
                         .then((updatedArticle) => {
-
-
 
                             Edit.create({
                                 author: req.user.fullName.toString(),
@@ -494,7 +456,6 @@ module.exports = {
                                 content: updatedArticle.content,
                                 article: updatedArticle
                             }).then((edit) => {
-
 
                                 updatedArticle.history.push(edit);
                                 updatedArticle.save(err => {
@@ -506,19 +467,13 @@ module.exports = {
                                     res.redirect('/');
                                     return;
                                 })
-
-
                             });
-
                         });
-
                 });
-
         }
     },
 
     lock: (req, res) => {
-
 
         if (!req.isAuthenticated()) {
             res.redirect('/user/login');
@@ -535,9 +490,6 @@ module.exports = {
                     res.redirect('/');
                     return;
                 }
-
-
-                //update article status
 
                 Article.update({ _id: req.params.id }, {
                     $set: {
@@ -548,16 +500,11 @@ module.exports = {
                         res.redirect(`/`);
                         return;
                     });
-
-
             });
         });
-
-
     },
 
     unlock: (req, res) => {
-
 
         if (!req.isAuthenticated()) {
             res.redirect('/user/login');
@@ -575,9 +522,6 @@ module.exports = {
                     return;
                 }
 
-
-                //update article status
-
                 Article.update({ _id: req.params.id }, {
                     $set: {
                         statusLocked: false
@@ -587,13 +531,8 @@ module.exports = {
                         res.redirect(`/`);
                         return;
                     });
-
-
-
             });
         });
-
-
     },
 
     deleteGet: (req, res) => {
@@ -614,7 +553,6 @@ module.exports = {
                     return;
                 }
 
-
                 if (isAdmin) {
                     res.render('product/delete-product', {
                         role: "Admin",
@@ -633,8 +571,6 @@ module.exports = {
                         product
                     });
                 }
-
-
             });
         });
     },
@@ -652,7 +588,5 @@ module.exports = {
             .then(product => {
                 res.redirect('/');
             });
-
     },
-
 };
