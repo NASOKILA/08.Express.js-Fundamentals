@@ -1,5 +1,3 @@
-
-
 const fs = require('fs');
 const filePath = './views/addMovie.html';
 const db = require('../config/dataBase.js');
@@ -30,9 +28,6 @@ module.exports = (req, res) => {
                 
         let error = '<div id="errBox"><h2 id="errMsg">Please fill all fields</h2></div>';
 
-        //VZIMAME SUBMITNATITE DANNI OT FORMICHKATA
-
-        //zapisvame vsichko v masiv body
         let body = [];
 
         req.on('data', chunk => {
@@ -42,15 +37,10 @@ module.exports = (req, res) => {
 
                 body = Buffer.concat(body).toString();
 
-                //VMESTO DA SPLITVAME MOJEM DA POLZVAME 'querystring'
-                //Prosto go requirvame i pishem qs.parse(body); I NI GO PRAVI NA JSON OBEKT
-
                 let newMovie = qs.parse(body);
 
                 let validMovieFlag = true;
 
-                //Proverqvame dali ima prazni poleta
-                //I ako ima si vkarvame greshkata v 'replaceMe'
                 for (const prop in newMovie) {
 
                     if (newMovie[prop] === '') {
@@ -71,12 +61,8 @@ module.exports = (req, res) => {
                     let data = 'db = ' + JSON.stringify(db)
                         + '\n module.exports = db;';
 
-                    //Zapisvame gi vuv dataBase.js
-                    //purvo dobavqme noviq film i nakraq prezapisvame vsichko v dataBase.js
-
                     fs.writeFile('./config/dataBase.js', data);
 
-                    //Nakraq redirektvame kum viewAll movies                    
                 }
 
             });
@@ -88,7 +74,7 @@ module.exports = (req, res) => {
                     return
                 }
                 console.log(replacement)
-                //ZAMESTVAME EDNA CHAST NA HTML-a SUS success PROMENLIVATA
+
                 data = data.toString().replace('<div id="replaceMe">{{replaceMe}}</div>', replacement)
 
                 res.writeHead(200, {
@@ -99,13 +85,8 @@ module.exports = (req, res) => {
                 res.end()                
 
             });
-
-            
-          
-
     }
     else {
         return true;
     }
-
 }
