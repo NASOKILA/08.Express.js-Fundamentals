@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -19,7 +18,3 @@ module.exports = (config) => {
     require('./../models/User').seedAdmin();
     require('./../models/Article');
 };
-
-
-
-

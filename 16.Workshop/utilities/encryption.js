@@ -1,8 +1,5 @@
-/**
- * Created by SoftUniLector on 11/6/2016.
- */
-
 const crypto = require('crypto');
+
 module.exports = {
   generateSalt: () => {
       let salt = crypto.randomBytes(128).toString('base64');

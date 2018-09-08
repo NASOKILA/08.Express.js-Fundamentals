@@ -20,7 +20,6 @@ module.exports = {
 
                 user.isInRole('Admin').then(isAdmin => {
 
-
                     for (const article of articles) {
                         article.isAuthenticated = true
                     }
@@ -32,9 +31,6 @@ module.exports = {
                     });
                 });
             }
-
-
         });
-
     }
 };

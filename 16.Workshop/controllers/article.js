@@ -51,25 +51,21 @@ module.exports = {
 
     details: (req, res) => {
 
-        if(!req.isAuthenticated())
-        {
+        if (!req.isAuthenticated()) {
             res.redirect("/user/login");
             return;
         }
 
         let id = req.params.id;
 
-        //with .populate('author') we attach the author object in the article
         Article.findById(id).populate('author').then(article => {
             if (!req.user) {
                 res.render('article/details', { article: article, isUserAuthorized: false });
                 return;
             }
 
-            //With .isInRole('Admin') we check if the user is an administrator
             req.user.isInRole('Admin').then(isAdmin => {
 
-                //user.isAuthor(article) checks if we are the author if the article
                 let isUserAuthorized = isAdmin || req.user.isAuthor(article);
 
                 res.render('article/details', { article: article, isUserAuthorized: isUserAuthorized });
@@ -86,40 +82,29 @@ module.exports = {
 
         Article.find({}).limit(6).populate('author').then(articles => {
 
-           
-                req.user.isInRole('Admin').then(isAdmin => {
 
-                    if(isAdmin)
-                    {
-                        //if we are admins we have CRUD authorization for all the articles
-                        for (const article of articles) {
-                                article.isUserAuthorized = true;
+            req.user.isInRole('Admin').then(isAdmin => {
+
+                if (isAdmin) {
+                    for (const article of articles) {
+                        article.isUserAuthorized = true;
+                    }
+                }
+                else {
+                    for (const article of articles) {
+                        if (req.user.isAuthor(article)) {
+                            article.isUserAuthorized = true;
                         }
                     }
-                    else
-                    {
-                        //if we are NOT admins we have CRUD credentials only for our articles
-                        for (const article of articles) {
-                            if (req.user.isAuthor(article)) {
-                                article.isUserAuthorized = true;
-                            }
-                        }
-                    }
+                }
 
-
-
-                    res.render('article/list', {
-                        articles: articles,
-                        user: req.user,
-                        isAdmin
-                    });
+                res.render('article/list', {
+                    articles: articles,
+                    user: req.user,
+                    isAdmin
                 });
-            
-
-
+            });
         });
-
-
     },
 
     editGet: (req, res) => {
@@ -211,15 +196,12 @@ module.exports = {
 
         Article.findOneAndRemove({ _id: id }).populate('author').then(article => {
             let author = article.author;
-
-            // Index of the article's ID in the author's articles.
             let index = author.articles.indexOf(article.id);
 
             if (index < 0) {
                 let errorMsg = 'Article was not found for that author!';
                 res.render('article/delete', { error: errorMsg })
             } else {
-                // Remove count elements after given index (inclusive).
                 let count = 1;
                 author.articles.splice(index, count);
                 author.save().then((user) => {

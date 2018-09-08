@@ -1,9 +1,7 @@
 <div class="container body-content">
     <div class="row">
         <h1>List All Articles Page</h1>
-        <br/>
-
-        {{#each articles}}
+        <br/> {{#each articles}}
         <div class="col-md-6">
             <article>
                 <header>
@@ -12,11 +10,10 @@
 
                 <p>{{this.content}}
                 </p>
-
-
-                    <p>
-                        {{date}}
-                    </p>
+                
+                <p>
+                    {{date}}
+                </p>
 
                 <small class="author">
                     {{this.author.fullName}}
@@ -34,7 +31,7 @@
             </article>
         </div>
         {{else}}
-            <p>No Articles in DB !</p>
+        <p>No Articles in DB !</p>
         {{/each}}
     </div>
 </div>

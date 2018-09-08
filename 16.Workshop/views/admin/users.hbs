@@ -1,18 +1,20 @@
 <div class="container body-content">
     <div class="row">
         {{#each adminUsers}}
-            <div class="col-md-6">
-                
-                    <header>
-                        <h2>Name: {{fullName}}</h2>
-                    </header>
+        <div class="col-md-6">
 
-                    <p>Email: {{email}}</p>
-                    <p><i>Id: {{_id}}</i></p>
+            <header>
+                <h2>Name: {{fullName}}</h2>
+            </header>
 
-            </div>
-            {{else}}
-            <p>No Admins registered in the db !</p>
+            <p>Email: {{email}}</p>
+            <p>
+                <i>Id: {{_id}}</i>
+            </p>
+
+        </div>
+        {{else}}
+        <p>No Admins registered in the db !</p>
         {{/each}}
     </div>
 </div>
