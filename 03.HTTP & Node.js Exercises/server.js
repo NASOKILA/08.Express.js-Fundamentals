@@ -16,7 +16,3 @@ let server = http.createServer((req, res) => {
 
 let port = '7000';
 server.listen(port);
-
-//SERVERA SE PUSKA OT KONZOLATA SUS: node server.js (IMETO NA FAILA)
-//I SE SPIRA SUS: 'CTRL + C'
-

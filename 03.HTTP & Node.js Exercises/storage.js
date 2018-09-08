@@ -8,12 +8,10 @@ let storage = {
     put: (key, value) => {
         if (typeof key !== 'string') {
             return 'Key should be a String';
-            //throw Error('Key should be a String !');
         }
 
         if (key in memory) {
             return 'Key already exists in storage';
-            //throw Error('Key already exists in storage !');
         }
 
         memory[`${key}`] = value;
@@ -27,7 +25,6 @@ let storage = {
     getAll: () => {
         if (Object.keys(memory).length === 0) {    
             return 'There are no items in the storage';
-            //throw Error('Storage is Empty !');
         }
 
         return memory;
@@ -48,12 +45,10 @@ let storage = {
     },
 
     save: () => {
-        //Tova e sinhromniq variqnt
         fs.writeFileSync("./storage.json", JSON.stringify(memory), 'utf8');
     },
 
     load: () => {
-        //Moje da polzvame Promise da raboti asinhromno
         let data = fs.readFileSync("./storage.json", 'utf8', (err, data) => {
             if(err)
                 return;
@@ -61,23 +56,16 @@ let storage = {
         
         memory = JSON.parse(data);
     }
-
-    
 };
 
 
 function checkKey(key) {
     if (typeof key !== 'string') {
         return 'Key should be a String';
-        //throw Error('Key should be a String !');
     }
     if (!(key in memory)) {
         return 'Key does not exist in storage';
-        //throw Error('Key does not exist in storage !');
     }
 }
 
-
 module.exports = storage;
-
-
