@@ -22,7 +22,6 @@ module.exports = (req, res) => {
                     'content-type': 'application/javascript'
                 });
             }
-
             
             res.write(data);
             res.end();
@@ -37,7 +36,6 @@ module.exports = (req, res) => {
                 return;
             }
     
-            //VAJNO E TUK DA MU DADEN 404 ZASHTOTO REALNO NE NAMIRA STRANICATA.
             res.writeHead(404, {
                 'content-type': 'text/html'
             });
@@ -47,6 +45,3 @@ module.exports = (req, res) => {
         });
     }
 }
-
-
-
