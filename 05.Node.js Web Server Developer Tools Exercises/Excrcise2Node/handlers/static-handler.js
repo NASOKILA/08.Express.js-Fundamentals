@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const favIvonFilePath = './public/images/favicon.ico';
 const cssFilePath = './public/css/main.css';
@@ -71,8 +70,6 @@ module.exports = (req, res) => {
     }
     else if(req.path.endsWith('.jpg') && req.method === 'GET'){
 
-        
-        console.log('JPG FORMAT')
         fs.readlink(req.path, (err, data) => {
 
             if(err){
@@ -94,5 +91,4 @@ module.exports = (req, res) => {
     else {
         return true;
     }
-
 }

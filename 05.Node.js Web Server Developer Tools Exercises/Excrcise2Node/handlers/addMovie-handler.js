@@ -49,10 +49,8 @@ module.exports = (req, res) => {
                     }
                 }
 
-                
                 if (validMovieFlag) {
 
-                    console.log(newMovie);
                     newMovie.movieTitle = newMovie.movieTitle.replace(/ /gm, '%20');
                     newMovie.movieTitle = newMovie.movieTitle.replace(/:/gm, '%3A');
                     
@@ -73,7 +71,6 @@ module.exports = (req, res) => {
                     console.log(err);
                     return
                 }
-                console.log(replacement)
 
                 data = data.toString().replace('<div id="replaceMe">{{replaceMe}}</div>', replacement)
 

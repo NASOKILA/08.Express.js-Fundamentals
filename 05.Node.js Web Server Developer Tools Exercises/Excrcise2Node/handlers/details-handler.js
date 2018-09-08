@@ -6,7 +6,6 @@ module.exports = (req, res) => {
 
     if (req.path.startsWith('/details') && req.method === 'GET') {
 
-       
         let tokens = req.path.split('/');
         let movieName = tokens[tokens.length - 1];
 
@@ -24,7 +23,6 @@ module.exports = (req, res) => {
             res.end()
         }
         else {
-
 
             fs.readFile('./views/details.html', (err, data) => {
 
