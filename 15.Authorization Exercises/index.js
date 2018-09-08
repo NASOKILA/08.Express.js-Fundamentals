@@ -1,34 +1,23 @@
 
 const express = require('express');
 const handlebars = require('express-handlebars');
-
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
-
-
 const port = 3000;
 
 let app = express();
 
-
-//Mongoose DB
 let mongoose = require('mongoose');
 let database = require('./config/dbConfig');
 database();
 
-
-//schemas
 let carSchema = require('./schemas/carSchema');
 let userSchema = require('./schemas/userSchema');
 
-
-//bodyParser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-//Handlebars
 app.engine('.hbs', handlebars({
     extname: '.hbs',
     layoutsDir: 'views/layouts',
@@ -36,81 +25,61 @@ app.engine('.hbs', handlebars({
 }));
 app.set('view engine', 'hbs');
 
-
-//Cookie
 app.use(cookieParser());
 
-
-//Session
 app.use(session({
     secret: 'keyboard cat !@#'
 }));
 
-
-//Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-//public folder 
 app.use('/public', express.static('public'));
 app.use(express.static('static'));
 
-//cars folder
 app.use('/cars', express.static('cars'));
 app.use(express.static('static'));
 
-//users folder
 app.use('/users', express.static('users'));
 app.use(express.static('static'));
 
 
-//router
 const authRouter = require('./auth');
 app.use('/users', authRouter);
 
 
-//authentication function
 function isAuthenticated(req, res, next) {
 
-    //ako nqmame registriran user redirektvame kum login stranicata
     if (req.session.user === undefined) {
         return res.redirect('/login');
     }
 
-    //ako sme veche lognati produljavame kum (req, res) => {...}
     next();
 }
 
-
-//home
 app.get('/', (req, res) => {
 
     if (req.session.user !== undefined) {
         res.render('home', {
             userIsLoggedIn: true,
-            role : req.session.user.role,
-            username : req.session.user.username,
-
+            role: req.session.user.role,
+            username: req.session.user.username,
         });
     }
     else {
-        res.render('home',{
+        res.render('home', {
             userIsLoggedIn: false,
-            role : "anonymous",
-            username :  "user"
+            role: "anonymous",
+            username: "user"
         });
     }
-
 });
 
-
-//add
 app.get('/cars/add', isAuthenticated, (req, res) => {
 
     res.render('cars/create', {
         userIsLoggedIn: true
     });
-
 });
 
 app.post('/cars/add', (req, res) => {
@@ -136,7 +105,6 @@ app.post('/cars/add', (req, res) => {
         color: carColor
     });
 
-    //validation
     if (carMake === "" || carModel === "" || carImageUrl === "" || carPrice === "") {
 
         res.render('cars/create', {
@@ -168,10 +136,7 @@ app.post('/cars/add', (req, res) => {
 
 });
 
-
-//edit
 app.get('/edit/:id', isAuthenticated, (req, res) => {
-
 
     let id = req.params.id;
 
@@ -191,16 +156,13 @@ app.post('/edit/:id', isAuthenticated, (req, res) => {
     let success = '<div class="notification success">Car Updated !</h2></div>';
     let error = '<div class="notification error">Please fill all fields !</h2></div>';
     let adminError = '<div class="notification error">You have to be an administrator to update cars !</h2></div>';
-
     let id = req.params.id;
-
     let carMake = req.body.make;
     let carModel = req.body.model;
     let carImageUrl = req.body.imageUrl;
     let carPrice = req.body.price;
     let carColor = req.body.color;
 
-    //validation
     if (carMake === "" || carModel === "" || carImageUrl === "" || carPrice === "") {
 
         res.render('cars/edit', {
@@ -247,8 +209,6 @@ app.post('/edit/:id', isAuthenticated, (req, res) => {
 
 });
 
-
-//details
 app.get('/details/:id', (req, res) => {
 
     let id = req.params.id;
@@ -262,8 +222,7 @@ app.get('/details/:id', (req, res) => {
     });
 });
 
-//seeDetails
-app.get('/seeDetails/:id', isAuthenticated,  (req, res) => {
+app.get('/seeDetails/:id', isAuthenticated, (req, res) => {
 
     let id = req.params.id;
 
@@ -276,7 +235,6 @@ app.get('/seeDetails/:id', isAuthenticated,  (req, res) => {
     });
 });
 
-//delete
 app.get('/delete/:id', isAuthenticated, (req, res) => {
 
 
@@ -289,8 +247,6 @@ app.get('/delete/:id', isAuthenticated, (req, res) => {
             car
         });
     });
-
-
 });
 
 app.post('/delete/:id', isAuthenticated, (req, res) => {
@@ -298,9 +254,6 @@ app.post('/delete/:id', isAuthenticated, (req, res) => {
     let adminError = '<div class="notification error">You have to be an administrator to delete cars !</h2></div>';
 
     let id = req.params.id;
-
-    //validation
-
 
     if (req.session.user.role !== "admin") {
 
@@ -311,28 +264,19 @@ app.post('/delete/:id', isAuthenticated, (req, res) => {
                 message: adminError,
                 car
             });
-
         });
-
     }
     else {
         carSchema.findByIdAndRemove(id)
             .then(() => {
-
                 console.log('car deleted from db!');
                 res.redirect('/cars/all');
-
             });
     }
-
-
 });
 
-
-//all cars
 app.get('/cars/all', (req, res) => {
 
-    //take all cars from db
     carSchema.find({})
         .then((cars) => {
 
@@ -354,19 +298,17 @@ app.get('/cars/all', (req, res) => {
             }
 
             let loggedIn = req.session.user !== undefined;
-            //if we are logged
             if (loggedIn) {
 
                 let isAdmin = req.session.user.role === "admin";
-                if(isAdmin)
-                {
+                if (isAdmin) {
                     carsArray.forEach(car => {
                         car.isAdmin = true;
                     });
                 }
 
                 res.render('cars/all', {
-                    cars: carsArray,    
+                    cars: carsArray,
                     userIsLoggedIn: true,
                 });
             }
@@ -376,17 +318,12 @@ app.get('/cars/all', (req, res) => {
                 });
             }
         });
-
-
 });
 
-//read session
 app.get('/readSession', (req, res) => {
     res.json(req.session);
 });
 
-
-//rent
 app.get('/rent/:id', isAuthenticated, (req, res) => {
 
     let id = req.params.id;
@@ -398,7 +335,6 @@ app.get('/rent/:id', isAuthenticated, (req, res) => {
             car
         });
     });
-
 });
 
 app.post('/rent/:id', isAuthenticated, (req, res) => {
@@ -407,9 +343,9 @@ app.post('/rent/:id', isAuthenticated, (req, res) => {
     let numberOfDays = req.body.numberOfDays;
 
     if (numberOfDays === "" || Number(numberOfDays) <= 0) {
-        
+
         let message = '<div class="notification success">Input days is not valid !</h2></div>';
-        
+
         let id = req.params.id;
 
         carSchema.findById(id).then((car) => {
@@ -424,7 +360,6 @@ app.post('/rent/:id', isAuthenticated, (req, res) => {
 
     carSchema.findById(id).then((car) => {
 
-        //Update Car First
         carSchema.findByIdAndUpdate(id, {
             "$set": {
                 "rented": true,
@@ -434,20 +369,14 @@ app.post('/rent/:id', isAuthenticated, (req, res) => {
         })
             .then(() => {
 
-
                 carSchema.findById(id).then((currentCar) => {
 
-
                     console.log("Car updated")
-                    //push car to rentedCars
                     let userId = req.session.user._id;
                     let rentedCars = req.session.user.rentedCars;
 
                     rentedCars.push(currentCar);
 
-
-
-                    //update user
                     userSchema.findByIdAndUpdate(userId, {
                         "$set": {
                             "rentedCars": rentedCars,
@@ -465,8 +394,6 @@ app.post('/rent/:id', isAuthenticated, (req, res) => {
 
 });
 
-
-//profile
 app.get('/users/me', isAuthenticated, (req, res) => {
 
     let user = req.session.user;
@@ -480,7 +407,6 @@ app.get('/users/me', isAuthenticated, (req, res) => {
     }
     else {
 
-
         let carsArray = []
 
         for (const index in user.rentedCars) {
@@ -491,24 +417,18 @@ app.get('/users/me', isAuthenticated, (req, res) => {
 
                 carsArray.push(car);
 
-                if(Number(index) === user.rentedCars.length -1)
-                {
-                res.render('users/profile', {
-                    username: user.username,
-                    rentedCars: carsArray,
-                    userIsLoggedIn: true
-                });
+                if (Number(index) === user.rentedCars.length - 1) {
+                    res.render('users/profile', {
+                        username: user.username,
+                        rentedCars: carsArray,
+                        userIsLoggedIn: true
+                    });
                 }
             });
-
         }
-
-
     }
 });
 
-
-//additional login routes
 app.get('/login', (req, res) => {
     const message = req.session.message;
     req.session.message = '';
@@ -519,7 +439,6 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-
 
     let success = '<div class="notification success">User Login successfull !</h2></div>';
     let error = '<div class="notification error">Something Went Wrong !</h2></div>';
@@ -534,7 +453,6 @@ app.post('/login', (req, res) => {
 
             const user = users.filter(u => u.username === username)[0];
             if (user !== undefined) {
-
 
                 req.session.user = {
                     _id: user.id,
@@ -560,12 +478,7 @@ app.post('/login', (req, res) => {
                 message: error
             });
         });
-
 });
-
 
 app.listen(port);
 console.log(`Server listening on port ${port} !`);
-
-
-

@@ -1,5 +1,4 @@
 
-
 const passport = require('passport');
 
 const LocalPassport = require('passport-local');
@@ -73,7 +72,6 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
 
-
     let success = '<div class="notification success">User Registered Successfully, Please Log in!</h2></div>';
 
     let error = '<div class="notification error">Something Went Wrong !</h2></div>';
@@ -83,8 +81,6 @@ router.post('/register', (req, res) => {
         password,
         repeat
     } = req.body;
-
-
 
     if (password !== repeat) {
         return error("Passwords don't match");
@@ -99,7 +95,6 @@ router.post('/register', (req, res) => {
         const salt = encryption.generateSalt();
 
         const hashedPass = encryption.generateHashedPassword(salt, password);
-
         
         const user = new userSchema({
             username,
@@ -126,10 +121,7 @@ router.post('/register', (req, res) => {
                 username :  "user"
             });
         });
-
     });
-
-
 });
 
 function error(message) {
@@ -141,7 +133,5 @@ function error(message) {
     req.session.message = message;
     return res.redirect('/auth/register');
 }
-
-
 
 module.exports = router;
