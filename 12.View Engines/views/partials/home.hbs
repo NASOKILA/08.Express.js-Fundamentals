@@ -1,17 +1,10 @@
-
-<!--I tuk imame if else promenlivi i cikli cikli-->
-
-
-<!--I tuk failovete sa statichni i new e nujno da restartirame servera pri promqna !-->
 <h1>Welcome {{username}} !</h1>
 
 <br/>
-<br/>
-
-{{#if authenticated}}
-    <h2>User is authenticated !</h2>
+<br/> {{#if authenticated}}
+<h2>User is authenticated !</h2>
 {{else}}
-    <h2>User needs to login first !</h2>
+<h2>User needs to login first !</h2>
 {{/if}}
 
 <br/>
@@ -19,11 +12,9 @@
 <br/>
 
 <ul>
-{{#each collection}}
+    {{#each collection}}
     <li> Name: {{name}} | Age: {{age}} !</li>
-{{else}} <!--I tuk mojem da olzvame else v sluchai che kolekciqta ni e prazna !-->
+    {{else}}
     <i>No Users Avaliable</i>
-{{/each}}
+    {{/each}}
 </ul>
-
-
